@@ -1,7 +1,0 @@
-{
-  "routes": [{
-    "source": "^/products",
-    "target": "/",
-    "destination": "products-destination"
-  }]
-}
