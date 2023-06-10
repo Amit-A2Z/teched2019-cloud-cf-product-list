@@ -1,33 +1,32 @@
 ---
 applications:
-# Application
-- name: product-list
-  instances: 1
-  memory: ((MEMORY_PRODUCT_LIST_APP))
-  routes:
-    - route: product-list-((ID)).((LANDSCAPE_APPS_DOMAIN))
-  path: ((PATH_PRODUCT_LIST_APP))
-  buildpacks:
-    - ((BUILDPACK_PRODUCT_LIST_APP))
-  timeout: 180
-  services:
-    - xsuaa
+  # Application
+  - name: product-list
+    instances: 1
+    memory: ((MEMORY_PRODUCT_LIST_APP))
+    routes:
+      - route: product-list-((ID)).((LANDSCAPE_APPS_DOMAIN))
+    path: ((PATH_PRODUCT_LIST_APP))
+    buildpacks:
+      - ((BUILDPACK_PRODUCT_LIST_APP))
+    timeout: 180
+    services:
+      - xsuaa
 
-# Application Router
-- name: approuter
-  routes:
-    - route: approuter-((ID)).((LANDSCAPE_APPS_DOMAIN))
-  path: approuter
-  buildpacks:
-    - nodejs_buildpack
-  memory: 128M
-  services:
-    - xsuaa
-  env:
-    destinations: >
-      [
-        {"name":"products-destination",
-         "url":"https://product-list-((ID)).((LANDSCAPE_APPS_DOMAIN))",
-         "forwardAuthToken": true}
-      ]
-...
+  # Application Router
+  - name: approuter
+    routes:
+      - route: approuter-((ID)).((LANDSCAPE_APPS_DOMAIN))
+    path: approuter
+    buildpacks:
+      - nodejs_buildpack
+    memory: 128M
+    services:
+      - xsuaa
+    env:
+      destinations: >
+        [
+          {"name":"products-destination",
+           "url":"https://product-list-((ID)).((LANDSCAPE_APPS_DOMAIN))",
+           "forwardAuthToken": true}
+        ]
